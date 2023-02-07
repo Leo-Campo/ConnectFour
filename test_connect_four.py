@@ -217,6 +217,3 @@ def test_win_diagonally_left():
 
     game_over = board.place_disc(0, "player")
     assert game_over
-
-
-test_column_full()
