@@ -51,16 +51,15 @@ class Board:
     }  # Offsets used for directional winning condition checks
 
     def __init__(self, width, height):
-        self.neutralChar = "-"  # Char used for empty slots
-        self.firstPlayer = "X"  # Char used for player occupied slots
-        self.secondPlayer = "O"  # Char used for computer occupied slots
+        self.neutral_char = "-"  # Char used for empty slots
+        self.player_char = "X"  # Char used for player occupied slots
+        self.computer_char = "O"  # Char used for computer occupied slots
 
         self.width = width
         self.height = height
-        self.board = [[self.neutralChar for i in range(width)] for j in range(height)]
-        self.isOver = False
+        self.board = [[self.neutral_char for i in range(width)] for j in range(height)]
 
-        self.charMap = {"player": self.firstPlayer, "computer": self.secondPlayer}
+        self.char_map = {"player": self.player_char, "computer": self.computer_char}
 
     def _get_disc_by_direction(self, x, y, direction_x, direction_y):
         """
@@ -75,15 +74,18 @@ class Board:
         except Exception:
             return None
 
-    def _count_discs(self, char, new_disc_x, new_disc_y, direction_x, direction_y):
+    def _count_discs(
+        self, char, new_disc_x, new_disc_y, direction_x, direction_y, threshold=4
+    ):
         """
         Counts how many discs of the same starting one char are met consecutively from starting position
         (new_disc_x, new_disc_y) moving through direction (direction_x, direction_y)
 
-        Counts up to 4 consecutive discs, as 4 equal discs are enough to declare a winner
+        Counts up to 4 consecutive discs, as 4 equal discs are enough to declare a winner (in a
+        connect_four game, the threshold may be changed for different games)
         """
         count = 0
-        for step in range(1, 4):
+        for step in range(1, threshold):
             if (
                 self._get_disc_by_direction(
                     new_disc_x, new_disc_y, direction_x * step, direction_y * step
@@ -165,15 +167,15 @@ class Board:
         # Else game is not over yet
         return False
 
-    def isFull(self):
+    def is_full(self):
         """Returns true if the board has run out of space"""
         for row in self.board:
             for cell in row:
-                if cell == self.neutralChar:
+                if cell == self.neutral_char:
                     return False
         return True
 
-    def place_disc(self, x, player_str):
+    def place_disc(self, x, player_key):
         """
         Places a disc on the board
 
@@ -185,8 +187,8 @@ class Board:
             added = False
             new_disc_x, new_disc_y = 0, 0
             for idx in range(self.height - 1, -1, -1):
-                if self.board[idx][x] == self.neutralChar:
-                    self.board[idx][x] = self.charMap[player_str]
+                if self.board[idx][x] == self.neutral_char:
+                    self.board[idx][x] = self.char_map[player_key]
                     added = True
                     new_disc_x = idx
                     new_disc_y = x
@@ -195,7 +197,7 @@ class Board:
                     continue
             if added:
                 if not self.is_game_won(new_disc_x, new_disc_y):
-                    if board.isFull():
+                    if self.is_full():
                         raise BoardFullException("Board has run out of space")
                     else:
                         return False
@@ -208,9 +210,9 @@ class Board:
         """
         Prints the current board status
         """
-        print("*" * 5 * board.width)
+        print("*" * 5 * self.width)
         [print(row) for row in self.board]
-        print("*" * 5 * board.width)
+        print("*" * 5 * self.width)
 
 
 if __name__ == "__main__":
@@ -251,9 +253,9 @@ if __name__ == "__main__":
         computerPlaced = False
         print("Now it's my turn! Take this!")
         while not computerPlaced:
-            computerColumn = random.choice(range(0, board.width))
+            computer_column = random.choice(range(0, board.width))
             try:
-                game_over = board.place_disc(computerColumn, "computer")
+                game_over = board.place_disc(computer_column, "computer")
                 computerPlaced = True
             except BoardFullException as draw:
                 print("Looks like we ran out of space! Wanna play again?")
