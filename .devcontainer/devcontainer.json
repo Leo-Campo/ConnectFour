@@ -1,0 +1,42 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.117.0/containers/docker-existing-dockerfile
+{
+  "name": "connect-four",
+  "context": "..",
+  "dockerFile": "./Dockerfile",
+  "runArgs": ["--network=host"],
+  "settings": {
+    "python.pythonPath": "/opt/venv/bin/python",
+    "python.formatting.provider": "none",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+      "-v",
+      "-s",
+      "tests",
+      "-W ignore::DeprecationWarning"
+    ],
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+      }
+    },
+    "isort.args": ["--profile", "black"]
+  },
+  "containerUser": "user",
+  "extensions": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.black-formatter",
+    "ms-python.pylint",
+    "njpwerner.autodocstring",
+    "mhutchie.git-graph"
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/user/connect-four/,type=bind,consistency=consistent",
+  "workspaceFolder": "/home/user/connect-four/"
+}
