@@ -25,7 +25,7 @@ ENV TZ=Europe/Rome \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PYTHONPATH=/home/$USERNAME/crma-to-akeron
+    PYTHONPATH=/home/$USERNAME/connect-four
 
 COPY --from=builder /opt/venv /opt/venv
 
