@@ -105,7 +105,7 @@ class Board:
             first_direction_key not in self.DIRECTION_OFFSET.keys()
             or second_direction_key not in self.DIRECTION_OFFSET.keys()
         ):
-            # Invalid directons selected
+            # Invalid directions selected
             return 0
 
         direction_x, direction_y = self.DIRECTION_OFFSET[first_direction_key]

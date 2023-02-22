@@ -1,6 +1,13 @@
 import random
 import sys
 from .board import Board, BoardFullException, GameException
+from loguru import logger
+
+
+def _setup_logger(level: str):
+    logger.remove()
+    logger.add(sys.stdout, level=level)
+
 
 if __name__ == "__main__":
     print("Welcome to your personal game of ConnectFour!")
@@ -35,7 +42,7 @@ if __name__ == "__main__":
             continue
         board.print_status()
         if game_over:
-            print("!!!CONGRATULATIONS!!! You beated me")
+            print("!!!CONGRATULATIONS!!! You beat me")
             sys.exit(0)
         computerPlaced = False
         print("Now it's my turn! Take this!")

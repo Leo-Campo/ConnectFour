@@ -1,4 +1,5 @@
 from app.board import Board, BoardFullException, FullColumnException
+from app.board import Board, BoardFullException, FullColumnException
 import pytest
 
 
@@ -58,12 +59,12 @@ def test_draw():
     """Fills the board in a draw state and tests the game is recognized as a draw
 
     The example draw board is as follows (X player, O computer):
-    OXOXOXO
-    OXOXOXO
-    OXOXOXO
-    XOXOXOX
-    XOXOXOX
-    XOXOXOX
+    O X O X O X O
+    O X O X O X O
+    O X O X O X O
+    X O X O X O X
+    X O X O X O X
+    X O X O X O X
     """
     board = create_board()
     player_cells = [
