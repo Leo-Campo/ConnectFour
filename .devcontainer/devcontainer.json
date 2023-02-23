@@ -2,46 +2,35 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.117.0/containers/docker-existing-dockerfile
 {
   "name": "connect-four",
-  "context": "..",
-  "dockerFile": "./Dockerfile",
-  "runArgs": ["--network=host"],
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "workspaceFolder": "/home/connect-four",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/connect-four/,type=bind,consistency=consistent",
   "customizations": {
     "vscode": {
-      "settings": {
-        "python.pythonPath": "/opt/venv/bin/python",
-        "python.formatting.provider": "none",
-        "python.linting.pylintEnabled": true,
-        "python.linting.enabled": true,
-        "python.testing.unittestEnabled": false,
-        "python.testing.nosetestsEnabled": false,
-        "python.testing.pytestEnabled": true,
-        "python.testing.pytestArgs": [
-          "-v",
-          "-s",
-          "tests",
-          "-W ignore::DeprecationWarning"
-        ],
-        "[python]": {
-          "editor.defaultFormatter": "ms-python.black-formatter",
-          "editor.formatOnSave": true,
-          "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-          }
-        },
-        "isort.args": ["--profile", "black"],
-        "extensions": [
-          "ms-python.python",
-          "ms-python.vscode-pylance",
-          "ms-python.black-formatter",
-          "ms-python.pylint",
-          "njpwerner.autodocstring",
-          "mhutchie.git-graph"
-        ]
-      }
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.pylint",
+        "hnw.vscode-auto-open-markdown-preview",
+        "aaron-bond.better-comments",
+        "IBM.output-colorizer",
+        "KevinRose.vsc-python-indent",
+        "vscode-icons-team.vscode-icons",
+        "njpwerner.autodocstring",
+        "dzhavat.bracket-pair-toggler",
+        "streetsidesoftware.code-spell-checker",
+        "dzhavat.git-cheatsheet",
+        "codezombiech.gitignore",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker-italian",
+        "shd101wyy.markdown-preview-enhanced",
+        "esbenp.prettier-vscode",
+        "mechatroner.rainbow-csv",
+        "Gruntfuggly.todo-tree"
+      ]
     }
   },
-
-  "containerUser": "user",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/home/user/connect-four/,type=bind,consistency=consistent",
-  "workspaceFolder": "/home/user/connect-four/"
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
 }
