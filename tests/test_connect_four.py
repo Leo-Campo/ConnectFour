@@ -1,4 +1,5 @@
 from app.board import Board, BoardFullException, FullColumnException
+from app.board import Board, BoardFullException, FullColumnException
 import pytest
 
 

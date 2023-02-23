@@ -3,9 +3,11 @@ import sys
 from .board import Board, BoardFullException, GameException
 from loguru import logger
 
+
 def _setup_logger(level: str):
     logger.remove()
     logger.add(sys.stdout, level=level)
+
 
 if __name__ == "__main__":
     print("Welcome to your personal game of ConnectFour!")

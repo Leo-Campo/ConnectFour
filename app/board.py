@@ -29,6 +29,7 @@ class BoardFullException(GameException):
         self.message = message
         super().__init__(message)
 
+
 class Board:
     """
     Board where a ConnectFour game takes place
