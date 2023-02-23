@@ -13,5 +13,4 @@ RUN chown -R leo .git/*
 COPY --chown=leo ./app/ ./app/
 COPY --chown=leo ./tests/ ./tests/
 
-USER leo
 CMD ["python", "-m", "app"]
